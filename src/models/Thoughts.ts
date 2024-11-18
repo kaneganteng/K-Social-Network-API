@@ -1,16 +1,16 @@
 import { Schema, model } from 'mongoose';
-import Response from './Response.js';
+import Reaction from './Reaction.js';
 
-interface IVideo {
+interface IThoughts {
   published: boolean;
   createdAt: Date;
   advertiserFriendly: boolean;
   description: string;
-  responses: Response[];
+  reactions: Reaction[];
 }
 
 // Schema to create Post model
-const videoSchema = new Schema<IVideo>(
+const thoughtsSchema = new Schema<IThoughts>(
   {
     published: {
       type: Boolean,
@@ -29,7 +29,7 @@ const videoSchema = new Schema<IVideo>(
       minLength: 8,
       maxLength: 500,
     },
-    responses: [Response],
+    reactions: [Reaction],
   },
   {
     toJSON: {
@@ -39,15 +39,15 @@ const videoSchema = new Schema<IVideo>(
   }
 );
 
-// Create a virtual property `responses` that gets the amount of response per video
-videoSchema
-  .virtual('getResponses')
+// Create a virtual property `reactions` that gets the amount of reaction per thoughts
+thoughtsSchema
+  .virtual('getReactions')
   // Getter
   .get(function () {
-    return this.responses.length;
+    return this.reactions.length;
   });
 
-// Initialize our Video model
-const Video = model('video', videoSchema);
+// Initialize our Thoughts model
+const Thoughts = model('thoughts', thoughtsSchema);
 
-export default Video;
+export default Thoughts;
