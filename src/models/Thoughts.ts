@@ -1,53 +1,50 @@
-import { Schema, model } from 'mongoose';
-import Reaction from './Reaction.js';
+import { Schema, model, Document } from 'mongoose';
+import { reactionSchema, IReaction } from './Reaction.js';
 
-interface IThoughts {
-  published: boolean;
+interface IThought extends Document {
+  thoughtText: string;
   createdAt: Date;
-  advertiserFriendly: boolean;
-  description: string;
-  reactions: Reaction[];
+  username: string;
+  reactions: IReaction[]; // Array of nested reaction documents
+  reactionCount: number; // Virtual property
 }
 
-// Schema to create Post model
-const thoughtsSchema = new Schema<IThoughts>(
+const thoughtSchema = new Schema<IThought>(
   {
-    published: {
-      type: Boolean,
-      default: false,
+    thoughtText: {
+      type: String,
+      required: [true, 'Thought text is required'],
+      minLength: 1,
+      maxLength: 280,
     },
     createdAt: {
       type: Date,
-      default: Date.now,
+      default: Date.now, // Date.now returns a Date object, no need to change this
+      get: function (this: any) {
+        return this.createdAt.toLocaleString(); // Format the Date object to a string
+      },
     },
-    advertiserFriendly: {
-      type: Boolean,
-      default: true,
-    },
-    description: {
+    username: {
       type: String,
-      minLength: 8,
-      maxLength: 500,
+      required: [true, 'Username is required'],
     },
-    reactions: [Reaction],
+    reactions: [reactionSchema], // Use reactionSchema directly
   },
   {
     toJSON: {
       virtuals: true,
+      getters: true,
     },
     id: false,
   }
 );
 
-// Create a virtual property `reactions` that gets the amount of reaction per thoughts
-thoughtsSchema
-  .virtual('getReactions')
-  // Getter
-  .get(function () {
-    return this.reactions.length;
-  });
+thoughtSchema
+.virtual('reactionCount')
+.get(function (this: IThought) {
+  return this.reactions.length;
+});
 
-// Initialize our Thoughts model
-const Thoughts = model('thoughts', thoughtsSchema);
+const Thought = model<IThought>('Thought', thoughtSchema);
 
-export default Thoughts;
+export default Thought;

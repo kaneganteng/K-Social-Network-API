@@ -5,7 +5,7 @@ interface IUser extends Document {
   email: string;
   thoughts: ObjectId[];
   friends: ObjectId[];
-  friendCount: number; // A virtual
+  friendCount: number; // A virtual property
  }
 
 // Schema to create User model

@@ -1,7 +1,7 @@
-import { Schema, Document, ObjectId, Types } from 'mongoose';
+import { Schema, Document, Types } from 'mongoose';
 
 interface IReaction extends Document {
-  reactionId: ObjectId;
+  reactionId: Types.ObjectId;
   reactionBody: string;
   username: string;
   createdAt: Date;
@@ -15,16 +15,19 @@ const reactionSchema = new Schema<IReaction>(
     },
     reactionBody: {
       type: String,
-      required: true,
+      required: [true, 'Reaction body is required'],
       maxlength: 280,
     },
     username: {
       type: String,
-      required: true,
+      required: [true, 'Username is required'],
     },
     createdAt: {
       type: Date,
-      default: Date.now,
+      default: Date.now, // Set default to current timestamp
+      get: function (this: any) {
+        return this.createdAt.toLocaleString(); // Format timestamp
+      },
     },
   },
   {
@@ -35,4 +38,4 @@ const reactionSchema = new Schema<IReaction>(
   }
 );
 
-export default reactionSchema;
+export {reactionSchema, IReaction};
