@@ -1,5 +1,4 @@
-import User from '../models/User.js';
-import Thought from '../models/Thoughts.js'; // Import Thought model for deleting associated thoughts
+import { Thoughts, User } from '../models/index.js';
 import { Request, Response } from 'express';
 
 export const getUsers = async (_req: Request, res: Response): Promise<void> => {
@@ -59,7 +58,7 @@ export const deleteUser = async (req: Request, res: Response): Promise<void> => 
     if (!user) {
       res.status(404).json({ message: 'No user found with this ID!' });
     } else {
-      await Thought.deleteMany({ _id: { $in: user.thoughts } });
+      await Thoughts.deleteMany({ _id: { $in: user.thoughts } });
       res.json({ message: 'User and associated thoughts deleted!' });
     }
   } catch (err) {

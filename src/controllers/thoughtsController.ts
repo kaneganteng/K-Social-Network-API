@@ -7,11 +7,12 @@ export const getThoughts = async (_req: Request, res: Response): Promise<void> =
     const thoughts = await Thoughts.find();
     res.json(thoughts);
   } catch (err) {
-    res.status(500).json(err);
+    console.log(err);
+    res.status(500).json('help');
   }
 };
 
-// Get a single thought
+// Get a single thoughts
 export const getSingleThoughts = async (req: Request, res: Response): Promise<void> => {
   try {
     const thoughts = await Thoughts.findOne({ _id: req.params.thoughtsId });
@@ -27,7 +28,7 @@ export const getSingleThoughts = async (req: Request, res: Response): Promise<vo
   }
 };
 
-// Create a new thought
+// Create a new thoughts
 export const createThoughts = async (req: Request, res: Response): Promise<void> => {
   try {
     const thoughts = await Thoughts.create(req.body);
@@ -50,7 +51,7 @@ export const createThoughts = async (req: Request, res: Response): Promise<void>
   }
 };
 
-// Update a thought
+// Update a thoughts
 export const updateThoughts = async (req: Request, res: Response): Promise<void> => {
   try {
     const thoughts = await Thoughts.findOneAndUpdate(
@@ -70,7 +71,7 @@ export const updateThoughts = async (req: Request, res: Response): Promise<void>
   }
 };
 
-// Delete a thought
+// Delete a thoughts
 export const deleteThoughts = async (req: Request, res: Response): Promise<void> => {
   try {
     const thoughts = await Thoughts.findOneAndDelete({ _id: req.params.thoughtsId });
@@ -97,7 +98,7 @@ export const deleteThoughts = async (req: Request, res: Response): Promise<void>
   }
 };
 
-// Add a thought reaction
+// Add a thoughts reaction
 export const addThoughtsReaction = async (req: Request, res: Response): Promise<void> => {
   try {
     const thoughts = await Thoughts.findOneAndUpdate(

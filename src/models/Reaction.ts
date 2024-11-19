@@ -25,8 +25,9 @@ const reactionSchema = new Schema<IReaction>(
     createdAt: {
       type: Date,
       default: Date.now, // Set default to current timestamp
-      get: function (this: any) {
-        return this.createdAt.toLocaleString(); // Format timestamp
+      get: function (timestamp: any) {
+        return timestamp
+        // return this.createdAt.toLocaleString(); // Format timestamp
       },
     },
   },
