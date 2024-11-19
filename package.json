@@ -1,7 +1,7 @@
 {
-  "name": "26-stu_mongoose-crud",
+  "name": "k_social_network_api",
   "version": "1.0.0",
-  "description": "Reverse engineer developer activity for CRUD methods in Mongoose",
+  "description": "supposed to make people socialize and share their thoughts",
  "main": "server.js",
   "type": "module",
   "scripts": {
