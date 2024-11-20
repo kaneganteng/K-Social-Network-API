@@ -38,7 +38,7 @@
   ## How to Contribute
   You can reach out to me through the Questions section where my contact information is.
   ## WalkThrough Video
-  Here is the demo: COMING SOON!
+  Here is the demo: [K-Social-Network-API tutorial](https://drive.google.com/file/d/1hNdBaRuVAZ0mb7DSNLe2XLzAAi4nkMQ2/view?usp=sharing)
   ## Questions
   Contact:
   * Name: Kane Esasta
